@@ -1,21 +1,21 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="stylesheets/landing.css">
-    <link rel="stylesheet" href="stylesheets/main.css">
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
-    <!-- Font Awesome-->
-    <script src="https://kit.fontawesome.com/92992f5a3f.js" crossorigin="anonymous"></script>
-    <title>AroundTheWorld - Adventure Awaits</title>
-  </head>
-  <body>
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="stylesheets/main.css">
+        <link rel="stylesheet" href="stylesheets/landing.css">
+        <!-- Font Awesome-->
+        <script src="https://kit.fontawesome.com/92992f5a3f.js" crossorigin="anonymous"></script>
+        <title>AroundTheWorld - Adventures Await</title>
+    </head>
+    <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="/"><i class="fas fa-globe-americas"></i> AroundTheWorld</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,8 +34,11 @@
                         <a class="nav-link" href="/register">Sign Up</a>
                     </li>
                 <% } else { %>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/collections/new">Add Collection</a>
+                    </li>
                     <li>
-                        <span class="navbar-text font-weight-bold">
+                        <span class="navbar-text text-white">
                             Signed In As <%= currentUser.username %>
                         </span>
                     </li>
@@ -47,7 +50,7 @@
         </nav>
 
         <div id="landing-header">
-            <h1>Grab a friend and start exploring!</h1>
+            <h1 class="font-weight-bold">Grab a friend and start exploring!</h1>
             <a href="/collections" class="btn btn-lg btn-success">View Collections</a>
         </div>
 

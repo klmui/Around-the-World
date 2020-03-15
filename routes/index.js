@@ -40,7 +40,7 @@ router.get("/login", function(req, res){
 // Handling login logic
 router.post("/login", passport.authenticate("local",
  {
-     successRedirect: "/",
+     successRedirect: "/collections",
      failureRedirect: "login",
      failureFlash: "Sorry! You couldn't login",
      successFlash: "Login, successful"

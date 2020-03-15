@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="stylesheets/main.css">
     <!-- Font Awesome-->
     <script src="https://kit.fontawesome.com/92992f5a3f.js" crossorigin="anonymous"></script>
-    <title>AroundTheWorld - Adventure Awaits</title>
+    <title>AroundTheWorld - Adventures Await</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <a class="navbar-brand" href="/"><i class="fas fa-globe-americas"></i> AroundTheWorld</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -33,8 +33,11 @@
                         <a class="nav-link" href="/register">Sign Up</a>
                     </li>
                 <% } else { %>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/collections/new">Add Collection</a>
+                    </li>
                     <li>
-                        <span class="navbar-text font-weight-bold">
+                        <span class="navbar-text text-white">
                             Signed In As <%= currentUser.username %>
                         </span>
                     </li>

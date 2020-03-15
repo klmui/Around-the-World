@@ -11,7 +11,8 @@ var express             = require("express"),
     methodOverride      = require("method-override"),
 
     // Models
-    User                = require("./models/user");
+    User                = require("./models/user"),
+    Collection          = require("./models/collection"),
 
     // Routes
     indexRoutes         = require("./routes/index"),

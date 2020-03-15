@@ -1,0 +1,33 @@
+<%- include('../partials/header'); %>
+
+<div class="container">
+    <div class="row">
+        <div style="width: 40%; margin: 25px auto;">
+            <h1 class="text-center">Create a New Collection</h1>
+            <form action="/collections" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="name" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="location" placeholder="Location">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="image" placeholder="Image URL">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="number" name="price" placeholder="Price" min="0.00" step="0.01">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="description" placeholder="Description">
+                </div>
+                <div class="form-group">
+                <!--btn-block makes it take up the entire width-->
+                <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                </div>
+            </form>
+            <a href="/collection">Go Back</a>
+        </div> 
+    </div>
+</div>
+
+<%- include('../partials/footer'); %>
