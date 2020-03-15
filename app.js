@@ -14,7 +14,8 @@ var express             = require("express"),
     User                = require("./models/user");
 
     // Routes
-    indexRoutes         = require("./routes/index");
+    indexRoutes         = require("./routes/index"),
+    collectionRoutes    = require("./routes/collections");
 
 // DB Connection
 var url = process.env.DATABASEURL || "mongodb://localhost/around_the_world";
@@ -58,6 +59,7 @@ app.use(function(req, res, next){
 
 // Use route files
 app.use(indexRoutes);
+app.use(collectionRoutes);
 
 app.listen(process.env.PORT || 3000, function(){
     console.log("Server started");

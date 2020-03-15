@@ -1,0 +1,15 @@
+body {
+    background-image: url(https://images.unsplash.com/photo-1431512284068-4c4002298068?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-size: 100% 100%;
+    font-family: 'Work Sans', sans-serif;
+}
+
+#landing-header {
+    z-index: 1;
+    position: relative;
+    text-align: center;
+    padding-top: 30vh;
+}

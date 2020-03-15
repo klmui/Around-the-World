@@ -5,8 +5,8 @@ var User = require("../models/user");
 
 // Root route
 router.get("/", function(req,res){
-    res.render("collections");
-})
+    res.render("landing");
+});
 
 // ===========
 // AUTH ROUTES
@@ -18,7 +18,6 @@ router.get("/register", function(req, res){
 }); 
 
 // Handle sign up logic
-//handle sign up logic
 router.post("/register", function(req, res){
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, function(err, user){
@@ -28,7 +27,7 @@ router.post("/register", function(req, res){
         }
         passport.authenticate("local")(req, res, function(){
            req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
-           res.redirect("/"); 
+           res.redirect("/collections"); 
         });
     });
 });
@@ -53,7 +52,7 @@ router.post("/login", passport.authenticate("local",
 router.get("/logout", function(req, res){
     req.logout();
     req.flash("success", "Logged you out!");
-    res.redirect("/");
+    res.redirect("/collections");
 });
 
 module.exports = router;
