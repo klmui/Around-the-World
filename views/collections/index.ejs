@@ -3,9 +3,9 @@
 <div class="container mt-5">
   <div class="row">
     <% for (var i = 0; i < collections.length; i++) { %>
-      <div class="col-lg-4">
+      <div class="col-lg-3 mt-2">
         <div class="card mx-3" style="height: 50vh">
-            <img src="<%= collections[i].image %>" class="card-img" alt="..." style="height: 18vh">
+            <img src="<%= collections[i].image %>" class="card-img pt-3 pl-3 pr-3" alt="..." style="height: 18vh">
             <div class="card-body">
               <h5 class="card-title"><%= collections[i].name %></h5>
               <p class="card-text"><%= collections[i].description.substring(0, 20) %>...</p>

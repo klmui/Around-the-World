@@ -7,7 +7,7 @@ router.get("/collections", function(req, res) {
     // Get all collections from DB
     Collection.find({}, function(err, collections) {
         res.render("collections/index", {collections: collections});
-    })
+    });
 });
 
 // NEW - Show form to create a new collection
