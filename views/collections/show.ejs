@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap" rel="stylesheet">
+    <!-- Custom stylesheets -->
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="/stylesheets/show.css">
+    <!-- Font Awesome-->
+    <script src="https://kit.fontawesome.com/92992f5a3f.js" crossorigin="anonymous"></script>
+    <!-- MapBox -->
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css" rel="stylesheet" />
+    <title>AroundTheWorld - Adventures Await</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <a class="navbar-brand" href="/"><i class="fas fa-globe-americas"></i> AroundTheWorld</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/collections">Collections</a>
+                </li>
+                <% if(!currentUser){ %>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/register">Sign Up</a>
+                    </li>
+                <% } else { %>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/collections/new">Add Collection</a>
+                    </li>
+                    <li>
+                        <span class="navbar-text text-white">
+                            Signed In As <%= currentUser.username %>
+                        </span>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                <% } %>
+            </ul>
+        </nav>
+        
+        <div class="row afterNav">
+          <div class="col-md-9">
+            <div id="map"></div>
+          </div>
+          <div class="col-md-3">
+            <div class="list-group">
+              <li class="list-group-item active">Info 1</li>
+              <li class="list-group-item">Info 2</li>
+              <li class="list-group-item">Info 3</li>
+            </div>
+          </div>
+        </div>
+
+        <script>
+        mapboxgl.accessToken = "pk.eyJ1Ijoia2xtdWkiLCJhIjoiY2s3dHIwaGdsMTM2MTNtbHVraG5oNjBuMiJ9.d_WvYUNH3zsOuIGWCQWnnw";
+
+        /* Map: This represents the map on the page. */
+        var map = new mapboxgl.Map({
+          container: "map",
+          style: "mapbox://styles/mapbox/light-v10",
+          zoom: 4.72,
+          center: [-89.7975,41.2291]
+        });
+
+        map.on("load", function () {
+          /* Image: An image is loaded and added to the map. */
+          map.loadImage("https://i.imgur.com/MK4NUzI.png", function(error, image) {
+              if (error) throw error;
+              map.addImage("custom-marker", image);
+              /* Style layer: A style layer ties together the source and image and specifies how they are displayed on the map. */
+              map.addLayer({
+                id: "markers",
+                type: "symbol",
+                /* Source: A data source specifies the geographic coordinate where the image marker gets placed. */
+                source: {
+                  type: "geojson",
+                  data: {
+                    type: 'FeatureCollection',
+                    features: [
+                      {
+                        type: 'Feature',
+                        properties: {},
+                        geometry: {
+                          type: "Point",
+                          coordinates: [-89.1473, 42.758]
+                        }
+                      }
+                    ]
+                  }
+                },
+                layout: {
+                  "icon-image": "custom-marker",
+                }
+              });
+            });
+        });
+          </script>
+
+<%- include('../partials/footer'); %>

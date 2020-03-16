@@ -26,13 +26,13 @@ var collectionSchema = new mongoose.Schema({
     likes: {
         type: Number,
         default: 0
-    },
-    pins: [
-        {
-            lat: Number,
-            lng: Number
-        }
-    ]
+    }//,
+    // pins: [
+    //     {
+    //         lat: Number,
+    //         lng: Number
+    //     }
+    // ]
 });
 
 var Collection = mongoose.model("Collection", collectionSchema);
