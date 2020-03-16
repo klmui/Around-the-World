@@ -8,6 +8,7 @@ var collectionSchema = new mongoose.Schema({
     description: String,
     location: String,
     type: String,
+    category: String,
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

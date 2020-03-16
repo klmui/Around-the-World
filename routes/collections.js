@@ -28,8 +28,6 @@ router.post("/collections", function(req, res) {
     var location = req.body.location;
     var newCollection = {name: name, image: image, price: price, description: desc, author: author, location: location};
 
-    // TODO: Handle center and zoom of map
-
     // Create new collection and save it to DB
     Collection.create(newCollection, function(err, newlyCreated){
         if(err){

@@ -3,12 +3,12 @@
 <div class="container mt-5">
   <div class="row">
     <% for (var i = 0; i < collections.length; i++) { %>
-      <div class="col-lg-4 mx-3">
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" class="card-img" alt="..." style="height: 18vh">
+      <div class="col-lg-4">
+        <div class="card mx-3" style="height: 50vh">
+            <img src="<%= collections[i].image %>" class="card-img" alt="..." style="height: 18vh">
             <div class="card-body">
               <h5 class="card-title"><%= collections[i].name %></h5>
-              <p class="card-text"><%= collections[i].description %></p>
+              <p class="card-text"><%= collections[i].description.substring(0, 20) %>...</p>
               <button type="button" class="btn btn-sm btn-outline-success">View Collection</button>
               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
             </div>
