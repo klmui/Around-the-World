@@ -5,8 +5,9 @@ var Collection = require("../models/collection");
 // INDEX - Show all collections
 router.get("/collections", function(req, res) {
     // Get all collections from DB
-
-    res.render("collections");
+    Collection.find({}, function(err, collections) {
+        res.render("collections/index", {collections: collections});
+    })
 });
 
 // NEW - Show form to create a new collection
