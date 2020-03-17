@@ -32,29 +32,33 @@
           <p class="card-text"><%= collections[i].description %></p>
           <% } %>
           <div class="cardFooter">
-            <div>
-              <a
-                href="/collections/<%= collections[i]._id %>"
-                class="btn btn-sm btn-primary"
-              >
-                <i class="fas fa-info-circle"></i
-              ></a>
-              <a
-                href="/collections/<%= collections[i]._id %>/edit"
-                class="btn btn-sm btn-warning"
-              >
-                <i class="fas fa-edit"></i
-              ></a>
-              <a
-                href="/collections/<%= collections[i]._id %>"
-                class="btn btn-sm btn-danger"
-              >
-                <i class="far fa-trash-alt"></i
-              ></a>
-              <span style="margin-left: 100px;"
-                ><i class="far fa-thumbs-up"></i> <%= collections[i].likes
-                %></span
-              >
+            <div class="d-flex justify-content-between">
+              <div>
+                <a
+                  href="/collections/<%= collections[i]._id %>"
+                  class="btn btn-sm btn-primary"
+                >
+                  <i class="fas fa-info-circle"></i
+                ></a>
+                <% if (currentUser &&
+                collections[i].author.id.equals(currentUser._id)) { %>
+                <a
+                  href="/collections/<%= collections[i]._id %>/edit"
+                  class="btn btn-sm btn-warning"
+                >
+                  <i class="fas fa-edit"></i
+                ></a>
+                <a
+                  href="/collections/<%= collections[i]._id %>"
+                  class="btn btn-sm btn-danger"
+                >
+                  <i class="far fa-trash-alt"></i
+                ></a>
+                <% } %>
+              </div>
+              <div>
+                <i class="far fa-thumbs-up"></i> <%= collections[i].likes %>
+              </div>
             </div>
             <p class="card-text mt-3 mb-1">
               <small class="text-muted"
