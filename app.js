@@ -59,8 +59,8 @@ app.use(function(req, res, next){
 });
 
 // Use route files
-app.use(indexRoutes);
-app.use(collectionRoutes);
+app.use('/', indexRoutes);
+app.use('/collections', collectionRoutes);
 
 app.listen(process.env.PORT || 3000, function(){
     console.log("Server started");
