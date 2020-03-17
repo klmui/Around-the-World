@@ -34,6 +34,8 @@ var collectionSchema = new mongoose.Schema({
     //         lng: Number
     //     }
     // ]
+}, {
+    timestamps: true
 });
 
 var Collection = mongoose.model("Collection", collectionSchema);
