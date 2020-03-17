@@ -3,12 +3,6 @@ body {
     background-color: #F9F7F7;
 }
 
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-}
-
 @media (min-width: 1200px) {
     div.container {
         max-width: 1600px;

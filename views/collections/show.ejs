@@ -22,7 +22,7 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
     <a class="navbar-brand" href="/"><i class="fas fa-globe-americas"></i> AroundTheWorld</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,11 +86,46 @@
       </div>
     </div>
     <div class="col-lg-3 pl-0">
-      <!-- Show all pins if user does not own collection -->
-      <div class="list-group overflow-auto controlBar">
-        
+      <div class="list-group overflow-auto controlBar position-fixed" style="width: 100%;">
+        <% if (currentUser &&
+        collection.author.id.equals(currentUser._id)) { %>
+          <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Add Pin
+          </a>
+          <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+              Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+             </div>
+          </div>
+        <% } else { %>
+          <li class="list-group-item active">Info 1</li>
+          <li class="list-group-item">Info 2</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+          <li class="list-group-item">Info 3</li>
+        <% } %>
       </div>
-
+      
       <!-- Allow user to modify zoom and add pins to collection if user owns collection -->
 
       <!-- Else only let them view -->
