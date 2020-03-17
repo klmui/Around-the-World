@@ -61,4 +61,14 @@ router.get('/:id', function(req, res) {
   });
 });
 
+// EDIT - Show form to edit collection
+router.get('/:id/edit', middleware.checkCollectionOwnership, function(
+  req,
+  res
+) {
+  Collection.findById(req.params.id, function(err, collection) {
+    res.render('collections/edit', { collection: collection });
+  });
+});
+
 module.exports = router;
