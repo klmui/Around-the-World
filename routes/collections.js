@@ -31,13 +31,15 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
     username: req.user.username
   };
   var location = req.body.location;
+  var category = req.body.category;
   var newCollection = {
     name: name,
     image: image,
     price: price,
     description: desc,
     author: author,
-    location: location
+    location: location,
+    category: category
   };
 
   // Create new collection and save it to DB
