@@ -64,10 +64,7 @@ router.get('/:id', function(req, res) {
 });
 
 // EDIT - Show form to edit collection
-router.get('/:id/edit', middleware.checkCollectionOwnership, function(
-  req,
-  res
-) {
+router.get('/:id/edit', middleware.checkCollectionOwnership, function(req, res) {
   Collection.findById(req.params.id, function(err, collection) {
     res.render('collections/edit', { collection: collection });
   });
@@ -75,13 +72,12 @@ router.get('/:id/edit', middleware.checkCollectionOwnership, function(
 
 // UPDATE - Update collection in DB
 router.put('/:id', middleware.checkCollectionOwnership, function(req, res) {
-  Collection.findByIdAndUpdate(req.params.id, req.body.collection, function(
-    err,
-    collection
-  ) {
+  Collection.findByIdAndUpdate(req.params.id, req.body.collection, function(err, collection) {
     if (err) {
-      res.render('collections/edit', { collection: collection });
+      console.log(err);
+      res.render('/collections', { collection: collection });
     } else {
+      console.log(collection);
       res.redirect('/collections/' + collection._id);
     }
   });
@@ -91,6 +87,7 @@ router.put('/:id', middleware.checkCollectionOwnership, function(req, res) {
 router.delete('/:id', middleware.checkCollectionOwnership, function(req, res) {
   Collection.findByIdAndRemove(req.params.id, function(err) {
     if (err) {
+      console.log(err);
       res.redirect('/collections');
     } else {
       res.redirect('/collections');
