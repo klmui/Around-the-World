@@ -73,6 +73,20 @@ router.get('/price/desc', function(req, res) {
     });
 });
 
+// Sort by likes descending
+router.get('/likes/desc', function(req, res) {
+  // Get all collections from DB
+  Collection.find({})
+    .sort({ likes: -1 })
+    .exec(function(err, collections) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render('collections/index', { collections: collections });
+      }
+    });
+});
+
 // NEW - Show form to create a new collection
 router.get('/new', function(req, res) {
   res.render('collections/new');
