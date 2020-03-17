@@ -16,17 +16,16 @@
           <h6 class="blockquote-footer border-bottom text-right">
             By <%= collections[i].author.username %>
           </h6>
-          <div class="d-flex inline justify-content-between">
+          <div class="d-flex inline justify-content-between border-bottom pb-0">
             <p class="font-weight-light font-italic">
               <i class="fas fa-location-arrow"></i> <%= collections[i].location
               %>
             </p>
             <p>$<%= collections[i].price %></p>
           </div>
-          <p class="border-bottom"><%= collections[i].category %></p>
-          <% if (collections[i].description.length >= 129) { %>
+          <% if (collections[i].description.length >= 125) { %>
           <p class="card-text">
-            <%= collections[i].description.substring(0, 129) %>...
+            <%= collections[i].description.substring(0, 125) %>...
           </p>
           <% } else { %>
           <p class="card-text"><%= collections[i].description %></p>
