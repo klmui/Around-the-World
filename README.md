@@ -2,7 +2,7 @@
 
 *Stuck planning your next vacation? View and share your own travel experiences or create your own travel guides! Go out and explore now!*
 
-Created by Kenneth (Kenny) Mui and Bloomest!
+Created by Kenneth (Kenny) Mui, Harry, and Bloomest!
 
 # Prereqs to clone and run app
 

@@ -69,7 +69,20 @@
     <div class="col-lg-9 pr-0">
       <div id="map"></div>
       <div class="infoAndComments">
-        <h2>Test Title</h2>
+        <div class="jumbotron py-1 mt-1">
+          <div class="inline">
+            <h1 class="display-5 text-center"><%= collection.name %></h1>
+            <h3 class="display-6 font-weight-light font-italic text-center"><i class="fas fa-location-arrow"></i> <%= collection.location %></h3>
+          </div>
+          <!-- <img class="rounded mx-auto d-block" src="<%= collection.image %>"> -->
+          <hr class="my-3">
+          <p class="lead description"><%= collection.description %></p>
+          <hr class="my-3">
+          <p>By: <%= collection.author.username %></p>
+          <p>Price: $<%= collection.price %></p>
+          <p>Category: <%= collection.category %></p>
+          <p>Updated: <%= collection.updatedAt.toDateString() %></p>
+        </div>
       </div>
     </div>
     <div class="col-lg-3 pl-0">
@@ -91,6 +104,16 @@
         <li class="list-group-item">Info 3</li>
         <li class="list-group-item">Info 3</li>
         <li class="list-group-item">Info 3</li>
+        <li class="list-group-item">Info 3</li>
+        <li class="list-group-item">Info 3</li>
+        <li class="list-group-item">Info 3</li>
+        <li class="list-group-item">Info 3</li>
+        <li class="list-group-item">Info 3</li>
+        <li class="list-group-item">Info 3</li>
+        <li class="list-group-item">Info 3</li>
+        <li class="list-group-item">Info 3</li>
+        <li class="list-group-item">Info 3</li>
+
       </div>
 
       <!-- Allow user to modify zoom and add pins to collection if user owns collection -->
