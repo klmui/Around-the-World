@@ -1,43 +1,48 @@
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
 // Schema Setup
-var collectionSchema = new mongoose.Schema({
-    name: {type: String, default: "Middle of Nowhere"},
+var collectionSchema = new mongoose.Schema(
+  {
+    name: { type: String, default: 'Middle of Nowhere' },
     price: String,
     image: String,
     description: String,
     location: String,
+    lat: Number,
+    lng: Number,
     type: String,
     category: String,
     author: {
-        id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        },
-        username: String
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      },
+      username: String
     },
     // Changes Dynamically
     comments: [
-        {
-            // This is how we associate a comment with a collection
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Comment"
-        }
+      {
+        // This is how we associate a comment with a collection
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment'
+      }
     ],
     likes: {
-        type: Number,
-        default: 0
-    }//,
+      type: Number,
+      default: 0
+    } //,
     // pins: [
     //     {
     //         lat: Number,
     //         lng: Number
     //     }
     // ]
-}, {
+  },
+  {
     timestamps: true
-});
+  }
+);
 
-var Collection = mongoose.model("Collection", collectionSchema);
+var Collection = mongoose.model('Collection', collectionSchema);
 
 module.exports = Collection;
