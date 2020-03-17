@@ -3,35 +3,77 @@
 <div class="container mt-5">
   <div class="row">
     <% for (var i = 0; i < collections.length; i++) { %>
-      <div class="col-lg-3 mt-2">
-        <div class="card mx-3 bg-white text-dark" style="height: 60vh">
-            <img src="<%= collections[i].image %>" class="card-img pt-3 pl-3 pr-3 shadow-sm bg-white rounded" alt="<%= collections[i].description %>" style="height: 18vh">
-            <div class="card-body">
-              <h5 class="card-title text-center"><%= collections[i].name %></h5>
-              <h6 class="blockquote-footer border-bottom text-right">By <%= collections[i].author.username %></h6>
-              <div class="d-flex inline justify-content-between">
-                  <p class="font-weight-light font-italic"><i class="fas fa-location-arrow"></i> <%= collections[i].location %></p>
-                  <p>$<%= collections[i].price %></p>
+    <div class="col-lg-3 mt-2">
+      <div class="card mx-3 bg-white text-dark" style="height: 60vh">
+        <img
+          src="<%= collections[i].image %>"
+          class="card-img pt-3 pl-3 pr-3 shadow-sm bg-white rounded"
+          alt="<%= collections[i].description %>"
+          style="height: 18vh"
+        />
+        <div class="card-body">
+          <h5 class="card-title text-center"><%= collections[i].name %></h5>
+          <h6 class="blockquote-footer border-bottom text-right">
+            By <%= collections[i].author.username %>
+          </h6>
+          <div class="d-flex inline justify-content-between">
+            <p class="font-weight-light font-italic">
+              <i class="fas fa-location-arrow"></i> <%= collections[i].location
+              %>
+            </p>
+            <p>$<%= collections[i].price %></p>
+          </div>
+          <p class="border-bottom"><%= collections[i].category %></p>
+          <% if (collections[i].description.length >= 129) { %>
+          <p class="card-text">
+            <%= collections[i].description.substring(0, 129) %>...
+          </p>
+          <% } else { %>
+          <p class="card-text"><%= collections[i].description %></p>
+          <% } %>
+          <div class="cardFooter">
+            <div class="d-flex justify-content-between">
+              <div>
+                <a
+                  href="/collections/<%= collections[i]._id %>"
+                  class="btn btn-sm btn-primary"
+                >
+                  <i class="fas fa-info-circle"></i
+                ></a>
+                <% if (currentUser &&
+                collections[i].author.id.equals(currentUser._id)) { %>
+                <a
+                  href="/collections/<%= collections[i]._id %>/edit"
+                  class="btn btn-sm btn-warning"
+                >
+                  <i class="fas fa-edit"></i
+                ></a>
+                <form
+                  style="display: inline;"
+                  action="/collections/<%= collections[i]._id %>?_method=DELETE"
+                  method="POST"
+                >
+                  <button class="btn btn-danger btn-sm">
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                </form>
+                <% } %>
               </div>
-              <p class="border-bottom"><%= collections[i].category %></p>
-              <% if (collections[i].description.length >= 129) { %>
-                <p class="card-text"><%= collections[i].description.substring(0, 129) %>...</p>
-              <% } else { %>
-                <p class="card-text"><%= collections[i].description %></p>
-              <% } %>
-              <div class="cardFooter">
-                <div>
-                  <button type="button" class="btn btn-sm btn-outline-success">View Collection</button>
-                  <span style="margin-left: 100px;"><i class="far fa-thumbs-up"></i> <%= collections[i].likes %></span>
-                </div>
-                <p class="card-text mt-3 mb-1"><small class="text-muted">Posted on <%= collections[i].updatedAt.toDateString() %></small></p>
+              <div>
+                <i class="far fa-thumbs-up"></i> <%= collections[i].likes %>
               </div>
             </div>
+            <p class="card-text mt-3 mb-1">
+              <small class="text-muted"
+                >Posted on <%= collections[i].updatedAt.toDateString() %></small
+              >
+            </p>
+          </div>
         </div>
       </div>
+    </div>
     <% } %>
   </div>
-    
 </div>
 
 <%- include('../partials/footer'); %>
