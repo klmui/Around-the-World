@@ -45,7 +45,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
   // Create new collection and save it to DB
   Collection.create(newCollection, function(err, newlyCreated) {
     if (err) {
-      res.redirect('/collections');
+      res.render('collections/new');
     } else {
       res.redirect('/collections');
     }
@@ -70,6 +70,31 @@ router.get('/:id/edit', middleware.checkCollectionOwnership, function(
 ) {
   Collection.findById(req.params.id, function(err, collection) {
     res.render('collections/edit', { collection: collection });
+  });
+});
+
+// UPDATE - Update collection in DB
+router.put('/:id', middleware.checkCollectionOwnership, function(req, res) {
+  Collection.findByIdAndUpdate(req.params.id, req.body.collection, function(
+    err,
+    collection
+  ) {
+    if (err) {
+      res.render('collections/edit', { collection: collection });
+    } else {
+      res.redirect('/collections/' + collection._id);
+    }
+  });
+});
+
+// Collection - Destroy
+router.delete('/:id', middleware.checkCollectionOwnership, function(req, res) {
+  Collection.findByIdAndRemove(req.params.id, function(err) {
+    if (err) {
+      res.redirect('/collections');
+    } else {
+      res.redirect('/collections');
+    }
   });
 });
 
