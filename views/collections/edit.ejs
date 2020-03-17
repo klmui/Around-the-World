@@ -4,12 +4,15 @@
   <div class="row">
     <div style="width: 40%; margin: 25px auto;">
       <h1 class="text-center">Edit collection</h1>
-      <form action="/collections/<%= collection._id %>?_method=PUT" method="POST">
+      <form
+        action="/collections/<%= collection._id %>?_method=PUT"
+        method="POST"
+      >
         <div class="form-group">
           <input
             class="form-control"
             type="text"
-            name="name"
+            name="collection[name]"
             value="<%= collection.name %>"
           />
         </div>
@@ -17,7 +20,7 @@
           <input
             class="form-control"
             type="text"
-            name="location"
+            name="collection[location]"
             value="<%= collection.location %>"
           />
         </div>
@@ -25,7 +28,7 @@
           <input
             class="form-control"
             type="text"
-            name="image"
+            name="collection[image]"
             value="<%= collection.image %>"
           />
         </div>
@@ -33,7 +36,7 @@
           <input
             class="form-control"
             type="number"
-            name="price"
+            name="collection[price]"
             value="<%= collection.price %>"
             min="0"
             step="1"
@@ -41,7 +44,11 @@
         </div>
         <div class="form-group">
           <label for="categorySelect">Type of Collection</label>
-          <select class="form-control" id="categorySelect">
+          <select
+            class="form-control"
+            id="categorySelect"
+            name="collection[category]"
+          >
             <option>Travel Blog</option>
             <option>Travel Guide</option>
           </select>
@@ -50,7 +57,7 @@
           <input
             class="form-control"
             type="text"
-            name="description"
+            name="collection[description]"
             value="<%= collection.description %>"
           />
         </div>
