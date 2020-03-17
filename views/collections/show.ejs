@@ -31,7 +31,15 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/collections">Collections</a>
+          <div class="dropdown">
+            <button class="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Collections
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/collections">Most Recent</a>
+              <a class="dropdown-item" href="/collections">Most Likes</a>
+            </div>
+          </div>
         </li>
         <% if(!currentUser){ %>
         <li class="nav-item active">
