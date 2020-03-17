@@ -5,28 +5,16 @@ var Collection = require('../models/collection');
 
 // INDEX - Show all collections
 router.get('/', function(req, res) {
-  // Get all collections from DB
-  Collection.find({}, function(err, collections) {
+  // Get all collections from DB and put most recent first
+  Collection.find({})
+  .sort({ updatedAt: -1 })
+  .exec(function(err, collections) {
     if (err) {
       console.log(err);
     } else {
       res.render('collections/index', { collections: collections });
     }
   });
-});
-
-// Sort by date descending
-router.get('/date/desc', function(req, res) {
-  // Get all collections from DB
-  Collection.find({})
-    .sort({ updatedAt: -1 })
-    .exec(function(err, collections) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render('collections/index', { collections: collections });
-      }
-    });
 });
 
 // Sort by date ascending
