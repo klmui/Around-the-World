@@ -46,8 +46,7 @@
                   href="/collections/<%= collections[i]._id %>/edit"
                   class="btn btn-sm btn-warning"
                 >
-                  <i class="fas fa-edit"></i
-                ></a>
+                  <i class="fas fa-edit"></i></a>
                 <form
                   style="display: inline;"
                   action="/collections/<%= collections[i]._id %>?_method=DELETE"
@@ -64,9 +63,7 @@
               </div>
             </div>
             <p class="card-text mt-3 mb-1">
-              <small class="text-muted"
-                >Posted on <%= collections[i].updatedAt.toDateString() %></small
-              >
+              <small class="text-muted">Updated on <%= collections[i].updatedAt.toDateString() %></small>
             </p>
           </div>
         </div>
