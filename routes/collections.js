@@ -26,7 +26,8 @@ router.post("/collections", function(req, res) {
         username: req.user.username
     }
     var location = req.body.location;
-    var newCollection = {name: name, image: image, price: price, description: desc, author: author, location: location};
+    var category = req.body.category;
+    var newCollection = {name: name, image: image, price: price, category: category, description: desc, author: author, location: location};
 
     // Create new collection and save it to DB
     Collection.create(newCollection, function(err, newlyCreated){
