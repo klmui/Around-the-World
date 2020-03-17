@@ -15,6 +15,76 @@ router.get('/', function(req, res) {
   });
 });
 
+// Sort by date descending
+router.get('/date/desc', function(req, res) {
+  // Get all collections from DB
+  Collection.find({})
+    .sort({ updatedAt: -1 })
+    .exec(function(err, collections) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render('collections/index', { collections: collections });
+      }
+    });
+});
+
+// Sort by date ascending
+router.get('/date/asc', function(req, res) {
+  // Get all collections from DB
+  Collection.find({})
+    .sort('updatedAt')
+    .exec(function(err, collections) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render('collections/index', { collections: collections });
+      }
+    });
+});
+
+// Sort by name ascending
+router.get('/name/asc', function(req, res) {
+  // Get all collections from DB
+  Collection.find({})
+    .sort('name')
+    .exec(function(err, collections) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render('collections/index', { collections: collections });
+      }
+    });
+});
+
+// Sort by price ascending
+router.get('/price/asc', function(req, res) {
+  // Get all collections from DB
+  Collection.find({})
+    .sort('price')
+    .exec(function(err, collections) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render('collections/index', { collections: collections });
+      }
+    });
+});
+
+// Sort by price descending
+router.get('/price/desc', function(req, res) {
+  // Get all collections from DB
+  Collection.find({})
+    .sort({ price: -1 })
+    .exec(function(err, collections) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render('collections/index', { collections: collections });
+      }
+    });
+});
+
 // NEW - Show form to create a new collection
 router.get('/new', function(req, res) {
   res.render('collections/new');
@@ -64,7 +134,10 @@ router.get('/:id', function(req, res) {
 });
 
 // EDIT - Show form to edit collection
-router.get('/:id/edit', middleware.checkCollectionOwnership, function(req, res) {
+router.get('/:id/edit', middleware.checkCollectionOwnership, function(
+  req,
+  res
+) {
   Collection.findById(req.params.id, function(err, collection) {
     res.render('collections/edit', { collection: collection });
   });
@@ -72,7 +145,10 @@ router.get('/:id/edit', middleware.checkCollectionOwnership, function(req, res) 
 
 // UPDATE - Update collection in DB
 router.put('/:id', middleware.checkCollectionOwnership, function(req, res) {
-  Collection.findByIdAndUpdate(req.params.id, req.body.collection, function(err, collection) {
+  Collection.findByIdAndUpdate(req.params.id, req.body.collection, function(
+    err,
+    collection
+  ) {
     if (err) {
       console.log(err);
       res.render('/collections', { collection: collection });
