@@ -30,13 +30,13 @@ var collectionSchema = new mongoose.Schema(
     likes: {
       type: Number,
       default: 0
-    } //,
-    // pins: [
-    //     {
-    //         lat: Number,
-    //         lng: Number
-    //     }
-    // ]
+    },
+    pins: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Pin"
+        }
+    ]
   },
   {
     timestamps: true
