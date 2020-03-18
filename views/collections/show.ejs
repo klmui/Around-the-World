@@ -81,6 +81,7 @@
           <p class="lead description"><%= collection.description %></p>
           <hr class="my-3">
           <p>By: <%= collection.author.username %></p>
+          <p>Likes: <%= collection.likes.length %></p>
           <p>Price: $<%= collection.price %></p>
           <p>Category: <%= collection.category %></p>
           <p>Updated: <%= collection.updatedAt.toDateString() %></p>
