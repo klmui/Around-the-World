@@ -41,23 +41,6 @@
                 >
                   <i class="fas fa-info-circle"></i
                 ></a>
-                <% if (currentUser &&
-                collections[i].author.id.equals(currentUser._id)) { %>
-                <a
-                  href="/collections/<%= collections[i]._id %>/edit"
-                  class="btn btn-sm btn-warning"
-                >
-                  <i class="fas fa-edit"></i
-                ></a>
-                <form
-                  style="display: inline;"
-                  action="/collections/<%= collections[i]._id %>?_method=DELETE"
-                  method="POST"
-                >
-                  <button class="btn btn-danger btn-sm">
-                    <i class="far fa-trash-alt"></i>
-                  </button>
-                </form>
                 <form
                   style="display: inline;"
                   action="/collections/<%=collections[i]._id%>/like"
@@ -83,6 +66,23 @@
                   <%= collections[i].likes.length %>
                   <i class="ml-1 fas fa-users"></i>
                 </button>
+                <% if (currentUser &&
+                collections[i].author.id.equals(currentUser._id)) { %>
+                <a
+                  href="/collections/<%= collections[i]._id %>/edit"
+                  class="btn btn-sm btn-warning"
+                >
+                  <i class="fas fa-edit"></i
+                ></a>
+                <form
+                  style="display: inline;"
+                  action="/collections/<%= collections[i]._id %>?_method=DELETE"
+                  method="POST"
+                >
+                  <button class="btn btn-danger btn-sm">
+                    <i class="far fa-trash-alt"></i>
+                  </button>
+                </form>
                 <% } %>
               </div>
             </div>
