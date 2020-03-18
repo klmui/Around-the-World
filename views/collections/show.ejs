@@ -146,12 +146,15 @@
   <script>
     mapboxgl.accessToken = "pk.eyJ1Ijoia2xtdWkiLCJhIjoiY2s3dHIwaGdsMTM2MTNtbHVraG5oNjBuMiJ9.d_WvYUNH3zsOuIGWCQWnnw";
 
+    var lat = <%= collection.lat %>;
+    var lng = <%= collection.lng %>;
+
     /* Map: This represents the map on the page. */
     var map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/mapbox/light-v10",
       zoom: 4.72,
-      center: [-89.7975, 41.2291]
+      center: [lng, lat]
     });
 
     map.on("load", function () {
@@ -173,7 +176,7 @@
                 properties: {},
                 geometry: {
                   type: "Point",
-                  coordinates: [-89.1473, 42.758]
+                  coordinates: [lng, lat]
                 }
               }
             ]}

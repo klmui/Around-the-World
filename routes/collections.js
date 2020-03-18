@@ -94,10 +94,12 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
     id: req.user._id,
     username: req.user.username
   };
+  console.log(req.body.collection);
 
   // Add geocoding data to collection.
   geocoder.geocode(req.body.collection.location, function(err, data) {
     if (err || !data.length) {
+      console.log(err);
       return res.redirect('back');
     }
     req.body.collection.lat = data[0].latitude;
@@ -107,6 +109,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
     // Create a new collection and save to DB
     Collection.create(req.body.collection, function(err) {
       if (err) {
+        console.log(err);
         res.redirect('/collections/new');
       } else {
         res.redirect('/collections');
