@@ -141,10 +141,24 @@ router.get('/:id', function(req, res) {
         console.log(err);
         res.redirect('back');
       } else {
-        res.render('collections/show', {
-          collection: collection,
-          pins: JSON.stringify(collection.pins)
-        });
+
+        var collaborator = false;
+        if (req.isAuthenticated()) {
+          collaborator = collection.collaborators.some(function(c) {
+            return c.equals(req.user._id);
+          });
+          res.render('collections/show', {
+            collection: collection,
+            collaborator: collaborator,
+            pins: JSON.stringify(collection.pins)
+          });
+        } else {
+          res.render('collections/show', {
+            collection: collection,
+            collaborator: collaborator,
+            pins: JSON.stringify(collection.pins)
+          });
+        }
       }
     });
 });
