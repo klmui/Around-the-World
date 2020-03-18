@@ -12,6 +12,7 @@ var collectionSchema = new mongoose.Schema(
     lng: Number,
     type: String,
     category: String,
+    zoom: { type: Number, default: 15 },
     author: {
       id: {
         type: mongoose.Schema.Types.ObjectId,
