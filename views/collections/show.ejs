@@ -71,7 +71,7 @@
     <div class="col-lg-9 pr-0">
       <div id="map"></div>
       <div class="infoAndComments">
-        <div class="jumbotron py-1 mt-1">
+        <div class="jumbotron pt-2 pb-0">
           <div class="inline">
             <h1 class="display-5 text-center"><%= collection.name %></h1>
             <h3 class="display-6 font-weight-light font-italic text-center"><i class="fas fa-location-arrow"></i> <%= collection.location %></h3>
@@ -91,17 +91,17 @@
       <div class="list-group overflow-auto controlBar">
         <% if (currentUser &&
         collection.author.id.equals(currentUser._id)) { %>
-          <a class="btn btn-primary" data-toggle="collapse" href="#addPinCollapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+          <a class="btn btn-primary mb-1" data-toggle="collapse" href="#addPinCollapse" role="button" aria-expanded="false" aria-controls="collapseExample">
           Add Pin
           </a>
           <div class="collapse" id="addPinCollapse">
             <div class="card card-body">
               <form action="/pins" method="POST">
                 <div class="form-group">
-                  <input class="form-control" type="text" name="location" placeholder="Location" required>
+                  <input class="form-control" type="text" name="pin[location]" placeholder="Location" required>
                 </div>
                 <div class="form-group">
-                  <textarea class="form-control" type="text" name="description" placeholder="How do you get here and what do you do?" rows="3" required></textarea>
+                  <textarea class="form-control" type="text" name="pin[description]" placeholder="When/how did you get here and what did you do?" rows="3" required></textarea>
                 </div>
                 <div class="form-group d-flex justify-content-center">
                   <button class="btn btn-md btn-primary">Submit</button>
@@ -110,7 +110,7 @@
              </div>
           </div>
 
-          <a class="btn btn-primary" data-toggle="collapse" href="#setZoomCollapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+          <a class="btn btn-primary mb-1" data-toggle="collapse" href="#setZoomCollapse" role="button" aria-expanded="false" aria-controls="collapseExample">
           Set Zoom
           </a>
           <div class="collapse" id="setZoomCollapse">
@@ -121,6 +121,22 @@
                 </div>
                 <div class="form-group d-flex justify-content-center">
                   <button class="btn btn-md btn-primary">Save</button>
+                </div>
+              </form>
+             </div>
+          </div>
+
+          <a class="btn btn-primary mb-1" data-toggle="collapse" href="#addCommentCollapse" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Add Comment
+          </a>
+          <div class="collapse" id="addCommentCollapse">
+            <div class="card card-body">
+              <form action="/comments" method="POST">
+                <div class="form-group">
+                  <textarea class="form-control" type="text" name="comment[description]" rows="3" required></textarea>
+                </div>
+                <div class="form-group d-flex justify-content-center">
+                  <button class="btn btn-md btn-primary">Add</button>
                 </div>
               </form>
              </div>
@@ -171,7 +187,7 @@
     var map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/mapbox/light-v10",
-      zoom: 4.72,
+      zoom: 11,
       center: [lng, lat]
     });
 
