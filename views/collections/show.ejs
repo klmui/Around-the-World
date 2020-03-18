@@ -171,8 +171,8 @@
     var map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/mapbox/light-v10",
-      zoom: 11,
-      center: [lng, lat]
+      zoom: 10,
+      center: [-121.403732, 40.492392]
     });
 
     map.on("load", function () {
@@ -189,14 +189,28 @@
             type: "geojson",
             data: {
               type: 'FeatureCollection',
-              features: [{
-                type: 'Feature',
-                properties: {},
-                geometry: {
-                  type: "Point",
-                  coordinates: [lng, lat]
+              features: [
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [-121.415061, 40.506229]
+                  } 
+                },
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [-121.505184, 40.488084]
+                  }
+                },
+                {
+                  type: 'Feature',
+                  geometry: {
+                    type: 'Point',
+                    coordinates: [-121.354465, 40.488737]
+                  }
                 }
-              }
             ]}
           },
           layout: {
@@ -204,6 +218,25 @@
           }
         });
       });
+    });
+
+    map.on('click', function(e) {
+      var features = map.queryRenderedFeatures(e.point, {
+        layers: ['markers'] // replace this with the name of the layer
+      });
+
+      if (!features.length) {
+        return;
+      }
+
+      console.log(features);
+
+      var feature = features[0];
+
+      var popup = new mapboxgl.Popup({ offset: [0, -15] })
+        .setLngLat(feature.geometry.coordinates)
+        .setHTML('<h3>' + "cat" + '</h3><p>' + feature.properties.description + '</p>')
+        .addTo(map);
     });
   </script>
 
