@@ -13,9 +13,11 @@ var express = require('express'),
   User = require('./models/user'),
   Collection = require('./models/collection'),
   Pin = require('./models/pin'),
+  Comment = require('./models/comment'),
   // Routes
   indexRoutes = require('./routes/index'),
   pinRoutes = require('./routes/pins'),
+  commentRoutes = require('./routes/comments'),
   collectionRoutes = require('./routes/collections');
 
 // DB Connection
@@ -65,7 +67,8 @@ app.use(function(req, res, next) {
 // Use route files
 app.use('/', indexRoutes);
 app.use('/collections', collectionRoutes);
-app.use('/pins', pinRoutes);
+app.use('/collections/:id/comments', commentRoutes);
+app.use('/collections/:id/pins', pinRoutes);
 
 app.listen(process.env.PORT || 3000, function() {
   console.log('Server started');

@@ -27,10 +27,15 @@ var collectionSchema = new mongoose.Schema(
         ref: 'Comment'
       }
     ],
-    likes: {
-      type: Number,
-      default: 0
-    },
+    likes: [
+      {
+        id:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+        username: String
+      }
+    ],
     pins: [
         {
             type: mongoose.Schema.Types.ObjectId,

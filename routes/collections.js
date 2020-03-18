@@ -134,8 +134,9 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 
 // SHOW - shows collection (map with pins)
 router.get('/:id', function(req, res) {
-  Collection.findById(req.params.id, function(err, collection) {
+  Collection.findById(req.params.id).populate('comments pins').exec(function(err, collection) {
     if (err || !collection) {
+      console.log(err);
       res.redirect('back');
     } else {
       res.render('collections/show', { collection: collection });
@@ -178,6 +179,38 @@ router.delete('/:id', middleware.checkCollectionOwnership, function(req, res) {
     } else {
       res.redirect('/collections');
     }
+  });
+});
+
+// Collection like route
+router.post("/:id/like", middleware.isLoggedIn, function(req, res) {
+  Collection.findById(req.params.id, function(err, foundCollection) {
+    if (err) {
+      console.log(err);
+      return res.redirect("/collections/" + req.params.id);
+    }
+
+    // Check if req.user._id exists in foundCollection.likes
+    // some iterates through likes and compares it with like until true
+    var foundUserLike = foundCollection.likes.some(function(like) {
+      return like.equals(req.user._id);
+    });
+
+    if (foundUserLike) {
+      // Removing like
+      foundCollection.likes.pull(req.user._id);
+    } else {
+      // Adding new like by pushing user
+      foundCollection.likes.push(req.user);
+    }
+
+    foundCollection.save(function(err) {
+      if (err) {
+        console.log(err);
+        return res.redirect("/collections");
+      } 
+      return res.redirect("/collections");
+    });
   });
 });
 
