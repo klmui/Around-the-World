@@ -134,13 +134,16 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 
 // SHOW - shows collection (map with pins)
 router.get('/:id', function(req, res) {
-  Collection.findById(req.params.id, function(err, collection) {
-    if (err || !collection) {
-      res.redirect('back');
-    } else {
-      res.render('collections/show', { collection: collection });
-    }
-  });
+  Collection.findById(req.params.id)
+    .populate('comments')
+    .exec(function(err, collection) {
+      if (err || !collection) {
+        console.log(err);
+        res.redirect('back');
+      } else {
+        res.render('collections/show', { collection: collection });
+      }
+    });
 });
 
 // EDIT - Show form to edit collection
