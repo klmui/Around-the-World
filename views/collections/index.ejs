@@ -12,7 +12,9 @@
           style="height: 18vh"
         />
         <div class="card-body">
-          <h5 class="card-title text-center"><%= collections[i].name %></h5>
+          <h5 class="card-title text-center">
+            <a class="text-dark" href="/collections/<%= collections[i]._id %>"><%= collections[i].name %></a>
+          </h5>
           <h6 class="blockquote-footer border-bottom text-right">
             By <%= collections[i].author.username %>
           </h6>
