@@ -20,13 +20,23 @@ body {
 .content {
     position: fixed;
     background: rgba(0, 0, 0, 0.3);
-    color: #f1f1f1;
+    color: black;
     width: 50%;
     padding: 20px;
-    margin-top: 22vh;
+    margin-top: 33vh;
     font-size: 5px;
     margin-left: 25vw;
   }
+
+h1 {
+    font-weight: bold;
+    background: #3142CE;
+    background: -moz-linear-gradient(left, #3142CE 0%, #3DA48E 50%, #6CC57D 100%);
+    background: -webkit-linear-gradient(left, #3142CE 0%, #3DA48E 50%, #6CC57D 100%);
+    background: linear-gradient(to right, #3142CE 0%, #3DA48E 50%, #6CC57D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 #landing-header {
     z-index: 1;
