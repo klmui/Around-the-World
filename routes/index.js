@@ -27,8 +27,11 @@ router.post("/register", function(req, res){
 
     // Check if user with email already exists
     // Can set unique: true for email as well
-    User.findOne({'email': req.body.email}, function(createNewUser, foundUser) {
-        if (createNewUser) {
+    User.findOne({'email': req.body.email}, function(err, foundUser) {
+        if (err) {
+          console.log(err);
+        }
+        else if (!foundUser) {
             User.register(newUser, req.body.password, function(err, user){
                 if(err){
                     console.log(err);
