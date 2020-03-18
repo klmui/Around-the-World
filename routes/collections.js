@@ -140,7 +140,10 @@ router.get('/:id', function(req, res) {
         console.log(err);
         res.redirect('back');
       } else {
-        res.render('collections/show', { collection: collection });
+        res.render('collections/show', {
+          collection: collection,
+          pins: JSON.stringify(collection.pins)
+        });
       }
     });
 });

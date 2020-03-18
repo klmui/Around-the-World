@@ -1,5 +1,5 @@
 var express = require('express');
-var router = express.Router();
+var router = express.Router({ mergeParams: true });
 var middleware = require('../middleware/index.js');
 var Collection = require('../models/collection');
 var NodeGeocoder = require('node-geocoder');
@@ -15,34 +15,35 @@ var options = {
 var geocoder = NodeGeocoder(options);
 
 // CREATE - Add pin to collection
-router.post("/", middleware.isLoggedIn, function(req, res) {
+router.post('/', middleware.isLoggedIn, function(req, res) {
   // Lookup collection
   Collection.findById(req.params.id, function(err, collection) {
-    if (err) {
+    if (err || !collection) {
       console.log(err);
-      res.redirect("/collections");
+      res.redirect('/collections');
     } else {
-        // Add geocoding data to collection.
-        geocoder.geocode(req.body.pin.location, function(err, data) {
-          if (err || !data.length) {
-            console.log(err);
-            return res.redirect('back');
-          }
-          req.body.pin.lat = data[0].latitude;
-          req.body.pin.lng = data[0].longitude;
-          req.body.pin.location = data[0].formattedAddress;
+      // Add geocoding data to collection.
+      geocoder.geocode(req.body.pin.location, function(err, data) {
+        if (err || !data.length) {
+          console.log(err);
+          return res.redirect('back');
+        }
+        req.body.pin.lat = data[0].latitude;
+        req.body.pin.lng = data[0].longitude;
+        req.body.pin.location = data[0].formattedAddress;
 
-          // Create a new collection and save to DB
-          Pin.create(req.body.pin, function(err) {
-            if (err) {
-              console.log(err);
-              res.redirect('/collections/' + req.params.id);
-            } else {
-              console.log(req.body.pin);
-              res.redirect('/collections/' + req.params.id);
-            }
-          });
+        // Create a new collection and save to DB
+        Pin.create(req.body.pin, function(err, pin) {
+          if (err) {
+            console.log(err);
+            res.redirect('/collections/' + req.params.id);
+          } else {
+            collection.pins.push(pin);
+            collection.save();
+            res.redirect('/collections/' + req.params.id);
+          }
         });
+      });
     }
   });
 });
