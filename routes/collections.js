@@ -2,19 +2,29 @@ var express = require('express');
 var router = express.Router();
 var middleware = require('../middleware/index.js');
 var Collection = require('../models/collection');
+var NodeGeocoder = require('node-geocoder');
+
+// Configurations for geocoder.
+var options = {
+  provider: 'google',
+  httpAdapter: 'https',
+  apiKey: process.env.GEOCODER_API_KEY,
+  formatter: null
+};
+var geocoder = NodeGeocoder(options);
 
 // INDEX - Show all collections
 router.get('/', function(req, res) {
   // Get all collections from DB and put most recent first
   Collection.find({})
-  .sort({ updatedAt: -1 })
-  .exec(function(err, collections) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('collections/index', { collections: collections });
-    }
-  });
+    .sort({ updatedAt: -1 })
+    .exec(function(err, collections) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render('collections/index', { collections: collections });
+      }
+    });
 });
 
 // Sort by date ascending
@@ -94,33 +104,31 @@ router.get('/new', function(req, res) {
 
 // CREATE - Add new collection to DB
 router.post('/', middleware.isLoggedIn, function(req, res) {
-  var name = req.body.name;
-  var image = req.body.image;
-  var price = req.body.price;
-  var desc = req.body.description;
-  var author = {
+  req.body.collection.author = {
     id: req.user._id,
     username: req.user.username
   };
-  var location = req.body.location;
-  var category = req.body.category;
-  var newCollection = {
-    name: name,
-    image: image,
-    price: price,
-    description: desc,
-    author: author,
-    location: location,
-    category: category
-  };
+  console.log(req.body.collection);
 
-  // Create new collection and save it to DB
-  Collection.create(newCollection, function(err, newlyCreated) {
-    if (err) {
-      res.render('collections/new');
-    } else {
-      res.redirect('/collections');
+  // Add geocoding data to collection.
+  geocoder.geocode(req.body.collection.location, function(err, data) {
+    if (err || !data.length) {
+      console.log(err);
+      return res.redirect('back');
     }
+    req.body.collection.lat = data[0].latitude;
+    req.body.collection.lng = data[0].longitude;
+    req.body.collection.location = data[0].formattedAddress;
+
+    // Create a new collection and save to DB
+    Collection.create(req.body.collection, function(err) {
+      if (err) {
+        console.log(err);
+        res.redirect('/collections/new');
+      } else {
+        res.redirect('/collections');
+      }
+    });
   });
 });
 
