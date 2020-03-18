@@ -48,4 +48,23 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
   });
 });
 
+// UPDATE - Update collection in DB
+router.put('/setZoom', middleware.checkCollectionOwnership, function(req, res) {
+  Collection.findById(req.params.id, function(err, oldCollection) {
+    oldCollection.zoom = req.body.pin.zoom;
+    Collection.findByIdAndUpdate(req.params.id, oldCollection, function(
+      err,
+      newCollection
+    ) {
+      if (err) {
+        console.log(err);
+        res.render('/collections', { collection: newCollection });
+      } else {
+        console.log(newCollection);
+        res.redirect('/collections/' + newCollection._id);
+      }
+    });
+  });
+});
+
 module.exports = router;
