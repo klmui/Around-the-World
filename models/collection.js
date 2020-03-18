@@ -20,6 +20,12 @@ var collectionSchema = new mongoose.Schema(
       },
       username: String
     },
+    collaborators: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ],
     // Changes Dynamically
     comments: [
       {
@@ -30,18 +36,18 @@ var collectionSchema = new mongoose.Schema(
     ],
     likes: [
       {
-        id:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-      },
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
+        },
         username: String
       }
     ],
     pins: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Pin"
-        }
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Pin'
+      }
     ]
   },
   {
