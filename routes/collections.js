@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var middleware = require('../middleware/index.js');
 var Collection = require('../models/collection');
+var User = require('../models/user');
 var NodeGeocoder = require('node-geocoder');
 
 // Configurations for geocoder.
@@ -134,7 +135,7 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 // SHOW - shows collection (map with pins)
 router.get('/:id', function(req, res) {
   Collection.findById(req.params.id)
-    .populate('comments pins')
+    .populate('comments pins collaborators')
     .exec(function(err, collection) {
       if (err || !collection) {
         console.log(err);
@@ -168,7 +169,6 @@ router.put('/:id', middleware.checkCollectionOwnership, function(req, res) {
       console.log(err);
       res.render('/collections', { collection: collection });
     } else {
-      console.log(collection);
       res.redirect('/collections/' + collection._id);
     }
   });
@@ -219,26 +219,27 @@ router.post('/:id/like', middleware.isLoggedIn, function(req, res) {
 });
 
 // Collection invite collaborator route
-router.post('/:id/invite', middleware.isLoggedIn, function(req, res) {
+router.put('/:id/invite', middleware.isLoggedIn, function(req, res) {
   Collection.findById(req.params.id, function(err, collection) {
     if (err || !collection) {
       console.log(err);
       return res.redirect('/collections/' + req.params.id);
     }
-
+    console.log('collection found');
     User.findOne({ username: req.body.username }, function(err, user) {
       if (err || !user) {
+        console.log(err);
         // Flash username does not exist.
         return res.redirect('/collections/' + req.params.id);
       }
-
+      console.log('user found');
       // Check if req.user._id exists in collaborators array.
       var collaborator = collection.collaborators.some(function(c) {
         return c.equals(user._id);
       });
 
       if (!collaborator) {
-        collection.collaborators.push(req.user);
+        collection.collaborators.push(user);
 
         collection.save(function(err) {
           if (err) {
