@@ -218,4 +218,41 @@ router.post('/:id/like', middleware.isLoggedIn, function(req, res) {
   });
 });
 
+// Collection invite collaborator route
+router.post('/:id/invite', middleware.isLoggedIn, function(req, res) {
+  Collection.findById(req.params.id, function(err, collection) {
+    if (err || !collection) {
+      console.log(err);
+      return res.redirect('/collections/' + req.params.id);
+    }
+
+    User.findOne({ username: req.body.username }, function(err, user) {
+      if (err || !user) {
+        // Flash username does not exist.
+        return res.redirect('/collections/' + req.params.id);
+      }
+
+      // Check if req.user._id exists in collaborators array.
+      var collaborator = collection.collaborators.some(function(c) {
+        return c.equals(user._id);
+      });
+
+      if (!collaborator) {
+        collection.collaborators.push(req.user);
+
+        collection.save(function(err) {
+          if (err) {
+            console.log(err);
+            return res.redirect('/collections');
+          }
+          return res.redirect('/collections/' + req.params.id);
+        });
+      } else {
+        // Flash already collaborator.
+        return res.redirect('/collections/' + req.params.id);
+      }
+    });
+  });
+});
+
 module.exports = router;
