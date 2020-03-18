@@ -21,7 +21,8 @@ var url = process.env.DATABASEURL || 'mongodb://localhost/around_the_world';
 mongoose
   .connect(url, {
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useUnifiedTopology: true
   })
   .then(() => {
     console.log('Connected to DB!');
