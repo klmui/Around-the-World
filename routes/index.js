@@ -19,16 +19,29 @@ router.get("/register", function(req, res){
 
 // Handle sign up logic
 router.post("/register", function(req, res){
-    var newUser = new User({username: req.body.username});
-    User.register(newUser, req.body.password, function(err, user){
-        if(err){
-            console.log(err);
-            return res.render("register", {error: err.message});
+    req.body.email = req.body.email.trim();
+    var newUser = new User({
+        username: req.body.username, 
+        email: req.body.email
+    });
+
+    // Check if user with email already exists
+    User.findOne({'email': req.body.email}, function(createNewUser, foundUser) {
+        if (createNewUser) {
+            User.register(newUser, req.body.password, function(err, user){
+                if(err){
+                    console.log(err);
+                    return res.render("register", {error: err.message});
+                }
+                passport.authenticate("local")(req, res, function(){
+                   req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
+                   res.redirect("/collections"); 
+                });
+            });
         }
-        passport.authenticate("local")(req, res, function(){
-           req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
-           res.redirect("/collections"); 
-        });
+        else if (foundUser) {
+            return res.render("register", {error: "User with email already exists"});
+        }
     });
 });
 
