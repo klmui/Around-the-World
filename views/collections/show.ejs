@@ -97,7 +97,8 @@
           </a>
           <div class="collapse" id="addPinCollapse">
             <div class="card card-body">
-              <form action="/pins" method="POST">
+              <h1>/collections/<%= collection._id %>/pins</h1>
+              <form action="/collections/<%= collection._id %>/pins" method="POST">
                 <div class="form-group">
                   <input class="form-control" type="text" name="pin[location]" placeholder="Location" required>
                 </div>
@@ -134,6 +135,7 @@
           </a>
           <div class="collapse" id="addCommentCollapse">
             <div class="card card-body">
+              <h1>/collections/<%= collection._id %>/comments</h1>
               <form action="/collections/<%= collection._id %>/comments" method="POST">
                 <div class="form-group">
                   <textarea class="form-control" type="text" name="comment[text]" rows="3" required></textarea>
@@ -171,9 +173,32 @@
     var map = new mapboxgl.Map({
       container: "map",
       style: "mapbox://styles/mapbox/light-v10",
-      zoom: 10,
-      center: [-121.403732, 40.492392]
+      zoom: 15,
+      center: [lng, lat]
     });
+
+    var list = <%- pins %>;
+    const pins = [];
+    list.forEach(function(pin) {
+      pins.push(
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [pin.lng, pin.lat]
+          },
+          properties: {
+            title: pin.location,
+            description: pin.description
+          }
+        }
+      )
+    });
+
+    let geojson = {
+      type: 'FeatureCollection',
+      features: pins
+    };
 
     map.on("load", function () {
       /* Image: An image is loaded and added to the map. */
@@ -187,31 +212,7 @@
           /* Source: A data source specifies the geographic coordinate where the image marker gets placed. */
           source: {
             type: "geojson",
-            data: {
-              type: 'FeatureCollection',
-              features: [
-                {
-                  type: 'Feature',
-                  geometry: {
-                    type: 'Point',
-                    coordinates: [-121.415061, 40.506229]
-                  } 
-                },
-                {
-                  type: 'Feature',
-                  geometry: {
-                    type: 'Point',
-                    coordinates: [-121.505184, 40.488084]
-                  }
-                },
-                {
-                  type: 'Feature',
-                  geometry: {
-                    type: 'Point',
-                    coordinates: [-121.354465, 40.488737]
-                  }
-                }
-            ]}
+            data: geojson
           },
           layout: {
             "icon-image": "custom-marker",
@@ -229,13 +230,11 @@
         return;
       }
 
-      console.log(features);
-
       var feature = features[0];
 
       var popup = new mapboxgl.Popup({ offset: [0, -15] })
         .setLngLat(feature.geometry.coordinates)
-        .setHTML('<h3>' + "cat" + '</h3><p>' + feature.properties.description + '</p>')
+        .setHTML('<h6>' + feature.properties.title + '</h6><p>' + feature.properties.description + '</p>')
         .addTo(map);
     });
   </script>

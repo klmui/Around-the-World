@@ -1,4 +1,4 @@
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
 var PinSchema = new mongoose.Schema({
   description: String,
@@ -7,4 +7,5 @@ var PinSchema = new mongoose.Schema({
   lat: Number
 });
 
-module.exports = mongoose.model("Pin", PinSchema);
+var Pin = mongoose.model('Pin', PinSchema);
+module.exports = Pin;
