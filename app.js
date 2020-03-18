@@ -11,14 +11,18 @@ var express = require('express'),
   methodOverride = require('method-override'),
   // Models
   User = require('./models/user'),
+<<<<<<< HEAD
+=======
   Collection = require('./models/collection'),
   Pin = require('./models/pin'),
   Comment = require('./models/comment'),
+>>>>>>> master
   // Routes
   indexRoutes = require('./routes/index'),
   pinRoutes = require('./routes/pins'),
   commentRoutes = require('./routes/comments'),
   collectionRoutes = require('./routes/collections');
+commentRoutes = require('./routes/comments');
 
 // DB Connection
 var url = process.env.DATABASEURL || 'mongodb://localhost/around_the_world';

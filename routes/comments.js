@@ -4,26 +4,17 @@ var Collection = require('../models/collection');
 var Comment = require('../models/comment');
 var middleware = require('../middleware/index.js');
 
-// Comment - New
-router.get('/new', middleware.isLoggedIn, function(req, res) {
-  Collection.findById(req.params.id, function(err, collection) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render('comments/new', { collection: collection });
-    }
-  });
-});
-
 // Comment - Create
 router.post('/', middleware.isLoggedIn, function(req, res) {
   Collection.findById(req.params.id, function(err, collection) {
-    if (err) {
+    if (err || !collection) {
       console.log(err);
       res.redirect('/collections');
     } else {
-      req.body.comment.author.id = req.user._id;
-      req.body.comment.author.username = req.user.username;
+      req.body.comment.author = {
+        id: req.user._id,
+        username: req.user.username
+      };
       Comment.create(req.body.comment, function(err, comment) {
         if (err) {
           console.log(err);

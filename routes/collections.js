@@ -134,14 +134,16 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
 
 // SHOW - shows collection (map with pins)
 router.get('/:id', function(req, res) {
-  Collection.findById(req.params.id).populate('comments pins').exec(function(err, collection) {
-    if (err || !collection) {
-      console.log(err);
-      res.redirect('back');
-    } else {
-      res.render('collections/show', { collection: collection });
-    }
-  });
+  Collection.findById(req.params.id)
+    .populate('comments pins')
+    .exec(function(err, collection) {
+      if (err || !collection) {
+        console.log(err);
+        res.redirect('back');
+      } else {
+        res.render('collections/show', { collection: collection });
+      }
+    });
 });
 
 // EDIT - Show form to edit collection
@@ -183,11 +185,11 @@ router.delete('/:id', middleware.checkCollectionOwnership, function(req, res) {
 });
 
 // Collection like route
-router.post("/:id/like", middleware.isLoggedIn, function(req, res) {
+router.post('/:id/like', middleware.isLoggedIn, function(req, res) {
   Collection.findById(req.params.id, function(err, foundCollection) {
     if (err) {
       console.log(err);
-      return res.redirect("/collections/" + req.params.id);
+      return res.redirect('/collections/' + req.params.id);
     }
 
     // Check if req.user._id exists in foundCollection.likes
@@ -207,9 +209,9 @@ router.post("/:id/like", middleware.isLoggedIn, function(req, res) {
     foundCollection.save(function(err) {
       if (err) {
         console.log(err);
-        return res.redirect("/collections");
-      } 
-      return res.redirect("/collections");
+        return res.redirect('/collections');
+      }
+      return res.redirect('/collections');
     });
   });
 });
