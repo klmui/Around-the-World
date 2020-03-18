@@ -127,6 +127,8 @@
              </div>
           </div>
 
+          <% } %>
+
           <a class="btn btn-primary mb-1" data-toggle="collapse" href="#addCommentCollapse" role="button" aria-expanded="false" aria-controls="collapseExample">
           Add Comment
           </a>
@@ -142,9 +144,13 @@
               </form>
              </div>
           </div>
-          <% } %>
+
           <% collection.comments.forEach((comment, index) => { %>
-            <li class="list-group-item"><%= comment.text %></li>
+            <li class="list-group-item">
+              <p class=""><i class="fas fa-user"></i> <%= comment.author.username %></p>
+              <p><%= comment.text %></p>
+              <small class="text-muted">Created on <%= comment.createdAt.toDateString() %></small>
+            </li>
           <% }); %>
         </div>
       
