@@ -108,7 +108,6 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
     id: req.user._id,
     username: req.user.username
   };
-  console.log(req.body.collection);
 
   // Add geocoding data to collection.
   geocoder.geocode(req.body.collection.location, function(err, data) {
