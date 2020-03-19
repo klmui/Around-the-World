@@ -99,7 +99,12 @@
             bgCover();
         }
 
-        function onPlayerStateChange(event) {}
+        // Make sure loop is correct
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerSate.ENDED) {
+                player.playVideo();
+            }
+        }
 
         // Mimic background-size:cover.
         var resolution = 16 / 9;
