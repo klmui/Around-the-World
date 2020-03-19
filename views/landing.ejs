@@ -45,9 +45,11 @@
         $(document).ready(function () {
             $('#mainText').hide().fadeIn(3000);
             $('#video').hide().fadeIn(8000);
+            $("#player")[0].src += "?autoplay=1";
         });
         function playVideo(){
             $('.ytp-large-play-button').trigger('click');
+            $("#player")[0].src += "?autoplay=1";
         }
     </script>
 
