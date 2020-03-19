@@ -73,7 +73,7 @@
             player = new YT.Player('player', {
                 height: '100%',
                 width: '100%',
-                videoId: '-8JQB_wXjmk',
+                videoId: '8Z1eMy2FoX4',
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
@@ -85,7 +85,8 @@
                     'showinfo': 0,
                     'loop': 1,
                     'volume': 0,
-                    'origin': 'https://infinite-dawn-53796.herokuapp.com'
+                    'origin': 'https://infinite-dawn-53796.herokuapp.com',
+                    'start': 54
                 }
             });
             window.onresize = bgCover;
@@ -94,7 +95,7 @@
         // 4. The API will call this function when the video player is ready.
         function onPlayerReady(event) {
             event.target.playVideo();
-            // event.target.mute();
+            event.target.mute();
             bgCover();
         }
 
