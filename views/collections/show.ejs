@@ -19,7 +19,7 @@
   <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js"></script>
   <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css" rel="stylesheet" />
    <!-- Mapbox geocoder -->
-   <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>
+   <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js"></script>   
    <link
        rel="stylesheet"
        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css"
@@ -33,48 +33,47 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
-    <a class="navbar-brand" href="/"><i class="fas fa-globe-americas"></i> Around the World</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <a class="navbar-brand" href="/"><i class="far fa-compass"></i> Around the World</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <div class="dropdown">
-            <button class="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Collections
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="/collections">Most Recent</a>
-              <a class="dropdown-item" href="/collections/likes/desc">Most Likes</a>
-              <a class="dropdown-item" href="/collections/price/desc">Most Expensive</a>
-              <a class="dropdown-item" href="/collections/price/asc">Cheapest</a>
-            </div>
-          </div>
-        </li>
-        <% if(!currentUser){ %>
-        <li class="nav-item active">
-          <a class="nav-link" href="/login">Login</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/register">Sign Up</a>
-        </li>
-        <% } else { %>
-        <li class="nav-item active">
-          <a class="nav-link" href="/collections/new">Add Collection</a>
-        </li>
-        <li>
-          <span class="navbar-text text-white">
-            Signed In As <%= currentUser.username %>
-          </span>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/logout">Logout</a>
-        </li>
-        <% } %>
-      </ul>
-  </nav>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <div class="dropdown">
+                    <button class="btn btn-success dropdown-toggle border-left" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Collections
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="/collections">Most Recent</a>
+                      <a class="dropdown-item" href="/collections/likes/desc">Most Likes</a>
+                      <a class="dropdown-item" href="/collections/price/desc">Most Expensive</a>
+                      <a class="dropdown-item" href="/collections/price/asc">Cheapest</a>
+                    </div>
+                  </div>
+            </li>
+            <% if(!currentUser){ %>
+                <li class="nav-item active border-left">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item active border-left">
+                    <a class="nav-link" href="/register">Sign Up</a>
+                </li>
+            <% } else { %>
+                <li class="nav-item active border-left">
+                    <a class="nav-link" href="/collections/new">Add Collection</a>
+                </li>
+                <li>
+                    <span class="navbar-text text-white border-left">
+                        Signed In As <%= currentUser.username %>
+                    </span>
+                </li>
+                <li class="nav-item active border-left">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            <% } %>
+        </ul>
+    </nav>
 
   <!-- Main display -->
   <div class="row">
@@ -117,9 +116,10 @@
             <div class="card card-body">
               <form action="/collections/<%= collection._id %>/pins" method="POST">
                 <div class="form-group">
-                  <input class="form-control" type="text" name="pin[location]" placeholder="Location" required>
+                  <div id="geocoder" class="geocoder"></div>
+                  <input class="form-control" type="text" name="pin[location]" placeholder="Location (copy + paste from above)" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="margin-top: 30px;">
                   <textarea class="form-control" type="text" name="pin[description]" placeholder="When/how did you get here and what did you do?" rows="3" required></textarea>
                 </div>
                 <div class="form-group d-flex justify-content-center">
@@ -188,10 +188,6 @@
           <% }); %>
         </div>
       
-      <!-- Allow user to modify zoom and add pins to collection if user owns collection -->
-
-      <!-- Else only let them view -->
-
     </div>
   </div>
 
@@ -210,12 +206,19 @@
       center: [lng, lat]
     });
 
+    // Add search bar on map
     map.addControl(
         new MapboxGeocoder({
             accessToken: 'pk.eyJ1Ijoia2xtdWkiLCJhIjoiY2s3dHIwaGdsMTM2MTNtbHVraG5oNjBuMiJ9.d_WvYUNH3zsOuIGWCQWnnw',
             mapboxgl: mapboxgl
         })
     );
+    
+    // Add search bar outside of map
+    var geocoder = new MapboxGeocoder({
+      accessToken: "pk.eyJ1Ijoia2xtdWkiLCJhIjoiY2s3dHIwaGdsMTM2MTNtbHVraG5oNjBuMiJ9.d_WvYUNH3zsOuIGWCQWnnw",
+      mapboxgl: mapboxgl
+    });
 
     var list = <%- pins %>;
     const pins = [];
@@ -277,6 +280,7 @@
         .setHTML('<h6>' + feature.properties.title + '</h6><p>' + feature.properties.description + '</p>')
         .addTo(map);
     });
+    document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
   </script>
 
   <%- include('../partials/footer'); %>
