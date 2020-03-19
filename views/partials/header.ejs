@@ -24,7 +24,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <div class="dropdown">
-                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-success dropdown-toggle border-left" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Collections
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -36,22 +36,22 @@
                       </div>
                 </li>
                 <% if(!currentUser){ %>
-                    <li class="nav-item active">
+                    <li class="nav-item active border-left">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item active border-left">
                         <a class="nav-link" href="/register">Sign Up</a>
                     </li>
                 <% } else { %>
-                    <li class="nav-item active">
+                    <li class="nav-item active border-left">
                         <a class="nav-link" href="/collections/new">Add Collection</a>
                     </li>
                     <li>
-                        <span class="navbar-text text-white">
+                        <span class="navbar-text text-white border-left">
                             Signed In As <%= currentUser.username %>
                         </span>
                     </li>
-                    <li class="nav-item active">
+                    <li class="nav-item active border-left">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 <% } %>
