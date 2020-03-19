@@ -126,7 +126,7 @@
             <div class="card card-body">
               <form action="/collections/<%= collection._id %>/pins/setZoom?_method=PUT" method="POST">
                 <div class="form-group">
-                    <input class="form-control" type="number" name="pin[zoom]" placeholder="Zoom (default=15)" min="0.00" step="0.01">
+                    <input class="form-control" type="number" name="pin[zoom]" placeholder="Zoom (default=15)" min="0.00" step="0.01" value="<%= collection.zoom %>">
                 </div>
                 <div class="form-group d-flex justify-content-center">
                   <button class="btn btn-md btn-primary">Save</button>
