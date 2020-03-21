@@ -133,9 +133,9 @@
           <div class="card card-body">
             <form action="/collections/<%= collection._id %>/pins" method="POST">
               <div class="form-group">
-                <div id="geocoder" class="geocoder"></div>
+                <!-- <div id="geocoder" class="geocoder"></div> -->
                 <input class="form-control" type="text" name="pin[location]"
-                  placeholder="Location (copy + paste from above)" required>
+                  placeholder="Location" required>
               </div>
               <div class="form-group" style="margin-top: 30px;">
                 <textarea class="form-control" type="text" name="pin[description]"
