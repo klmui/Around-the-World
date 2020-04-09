@@ -52,7 +52,7 @@
         <div id="landing-header">
             <h1 class="mb-3" id="mainText">Stuck planning your next vacation?</h1>
             <h3 class="font-italic font-weight-light" id="secondText">Grab a friend and start exploring now!</h3>
-            <a href="/collections" class="btn btn-md btn-success">View Collections</a>
+            <a href="/collections" class="btn btn-md btn-success" id="collectionsButton">View Collections</a>
         </div>
     </div>
 
@@ -62,6 +62,7 @@
     <script>
         $(document).ready(function () {
             $('#mainText').hide().fadeIn(3000);
+            $('#collectionsButton').hide();
             $('.video').hide().fadeIn(10000);
         });
 
@@ -112,6 +113,13 @@
         function onPlayerReady(event) {
             event.target.playVideo();
             event.target.mute();
+
+            // Show collections button
+            setTimeout(function() {
+                console.log("loaded");
+                $('#collectionsButton').fadeIn('slow');
+            }, 2000);
+
             bgCover();
         }
 

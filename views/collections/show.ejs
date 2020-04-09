@@ -201,7 +201,7 @@
   </div>
 
   <script>
-    mapboxgl.accessToken = "pk.eyJ1Ijoia2xtdWkiLCJhIjoiY2s3dHIwaGdsMTM2MTNtbHVraG5oNjBuMiJ9.d_WvYUNH3zsOuIGWCQWnnw";
+    mapboxgl.accessToken = "pk.eyJ1Ijoia2xtdWkiLCJhIjoiY2s4c2pjazR5MDQ2NjNwcGs1bWQzMjRjOSJ9.peUcnT0ke818RTSPc0Z09g";
 
     var lat = <%= collection.lat %>;
     var lng = <%= collection.lng %>;
@@ -218,14 +218,14 @@
     // Add search bar on map
     map.addControl(
         new MapboxGeocoder({
-            accessToken: 'pk.eyJ1Ijoia2xtdWkiLCJhIjoiY2s3dHIwaGdsMTM2MTNtbHVraG5oNjBuMiJ9.d_WvYUNH3zsOuIGWCQWnnw',
+            accessToken: 'pk.eyJ1Ijoia2xtdWkiLCJhIjoiY2s4c2pjazR5MDQ2NjNwcGs1bWQzMjRjOSJ9.peUcnT0ke818RTSPc0Z09g',
             mapboxgl: mapboxgl
         })
     );
     
     // Add search bar outside of map
     var geocoder = new MapboxGeocoder({
-      accessToken: "pk.eyJ1Ijoia2xtdWkiLCJhIjoiY2s3dHIwaGdsMTM2MTNtbHVraG5oNjBuMiJ9.d_WvYUNH3zsOuIGWCQWnnw",
+      accessToken: "pk.eyJ1Ijoia2xtdWkiLCJhIjoiY2s4c2pjazR5MDQ2NjNwcGs1bWQzMjRjOSJ9.peUcnT0ke818RTSPc0Z09g",
       mapboxgl: mapboxgl
     });
 
